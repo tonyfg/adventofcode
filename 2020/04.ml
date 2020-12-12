@@ -1,3 +1,5 @@
+#use "helpers.ml";;
+
 let read_passports filename =
   let ch = open_in filename in
   let s = really_input_string ch (in_channel_length ch) in
@@ -26,7 +28,6 @@ List.length passports_with_required_fields;;
 let some l s = l |> List.fold_left (fun acc f -> acc || f s) false;;
 let has_length l s = String.length s = l;;
 let is_between a b s = s >= a && s <= b;;
-let matches regex s = Str.string_match (Str.regexp regex) s 0;;
 let unit_val unit s =
   match matches "\\(^[0-9]+\\)\\([a-z]+\\)$" s with
   | false -> None

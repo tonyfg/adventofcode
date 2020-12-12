@@ -1,16 +1,6 @@
-(*****************
- * SPOILER ALERT *
- *****************)
-
-let read_lines filename =
-  let ch = open_in filename in
-  let s = really_input_string ch (in_channel_length ch) in
-  close_in ch;
-  s |> String.split_on_char '\n'
-    |> List.filter (fun s -> not (String.equal s ""));;
+#use "helpers.ml";;
 
 let tickets = read_lines "05_input.txt"
-
 
 (* Part 1 *)
 let rec pow x y = match y with

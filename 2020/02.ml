@@ -1,24 +1,17 @@
-type entry = { min: int; max: int; letter: char; password: string };;
+#use "helpers.ml";;
 
-let read_file filename =
-  let ch = open_in filename in
-  let s = really_input_string ch (in_channel_length ch) in
-  close_in ch;
-  s;;
+type entry = { min: int; max: int; letter: char; password: string };;
 
 let regex = Str.regexp "\\(.?+\\)-\\(.?+\\) \\(.?\\): \\(.+\\)";;
 
-let make_entry s =
-  let _ = Str.string_match regex s 0 in
-  { min = Str.matched_group 1 s |> int_of_string;
-    max = Str.matched_group 2 s |> int_of_string;
-    letter = (Str.matched_group 3 s).[0];
-    password = Str.matched_group 4 s };;
+let make_entry s = Str.(
+    let _ = string_match regex s 0 in
+    { min = matched_group 1 s |> int_of_string;
+      max = matched_group 2 s |> int_of_string;
+      letter = (matched_group 3 s).[0];
+      password = matched_group 4 s });;
 
-let entries = read_file "02_input.txt"
-              |> String.split_on_char '\n'
-              |> List.filter (fun s -> not (String.equal s ""))
-              |> List.map make_entry;;
+let entries = read_lines "02_input.txt" |> List.map make_entry;;
 
 
 (* Part 1 *)

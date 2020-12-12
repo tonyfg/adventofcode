@@ -1,13 +1,6 @@
-let read_file filename =
-  let ch = open_in filename in
-  let s = really_input_string ch (in_channel_length ch) in
-  close_in ch;
-  s;;
+#use "helpers.ml";;
 
-let numbers = read_file "01_input.txt"
-              |> String.split_on_char '\n'
-              |> List.filter (fun s -> not (String.equal s ""))
-              |> List.map int_of_string;;
+let numbers = read_lines "01_input.txt" |> List.map int_of_string;;
 
 
 (* Part 1 *)

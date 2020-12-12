@@ -1,11 +1,4 @@
-let read_lines filename =
-  let ch = open_in filename in
-  let s = really_input_string ch (in_channel_length ch) in
-  close_in ch;
-  s |> String.split_on_char '\n'
-    |> List.filter (fun s -> not (s = ""));;
-
-let matches regex s = Str.string_match (Str.regexp regex) s 0;;
+#use "helpers.ml";;
 
 let parse s =
   let _ = matches "^\\(.+\\) bags contain \\(.+\\).$" s in
@@ -22,8 +15,7 @@ let parse s =
 
 
 let all_bags =
-  read_lines "07_input.txt"
-  |> List.mapi (fun i s -> Printf.printf "%d " i; parse s);;
+  read_lines "07_input.txt" |> List.map parse;;
 
 
 (* Part 1 *)
